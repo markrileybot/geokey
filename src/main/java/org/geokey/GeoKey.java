@@ -5,9 +5,11 @@ package org.geokey;
  */
 public class GeoKey extends KDKey {
 
-	private static final KDKeySpec spec = new KDKeySpec(
-			new double[][] {{-180,180},{-90,90}}
-	);
+	private static final KDKeySpec spec = new KDKeySpec.Builder()
+			.addDim(-180, 180, 1)
+			.addDim(-90, 90, 1)
+			.setAlphabet(Alphabet.GEO_HASH)
+			.build();
 
 	public GeoKey() {
 		super(spec);

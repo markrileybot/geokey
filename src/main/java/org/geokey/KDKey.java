@@ -7,23 +7,16 @@ package org.geokey;
  */
 public class KDKey {
 
-	/**
-	 * This array is a lookup table that translates 5-bit positive integer index values into their "Base32 Alphabet"
-	 * equivalents as specified in Table 3 of RFC 4648.
-	 */
-	private static final char[] BASE32_ISH = {
-			'0','1','2','3','4','5','6','7','8','9',
-			'b','c','d','e','f','g','h','j','k','m',
-			'n','p','q','r','s','t','u','v','w','x',
-			'y','z'
-	};
-
 	private final KDKeySpec spec;
 	private double[] d;
 
 	public KDKey(KDKeySpec spec) {
 		this.spec = spec;
-		this.d = new double[spec.bounds.length];
+		this.d = new double[spec.maxs.length];
+	}
+
+	public KDKeySpec getSpec() {
+		return spec;
 	}
 
 	public KDKey set(int i, double d) {
@@ -48,18 +41,18 @@ public class KDKey {
 	}
 
 	public void getBytes(byte[] res, int offset, int len) {
+		int bpc = spec.bits;
+		int[] bitOffs = spec.bitOffs;
 		int ds = d.length;
 		double mid = 0;
 		double[] highs = new double[ds];
 		double[] lows = new double[ds];
-		for(int i = 0; i < ds; i++) {
-			lows[i] = spec.bounds[i][0];
-			highs[i] = spec.bounds[i][1];
-		}
+		System.arraycopy(spec.maxs, 0, highs, 0, ds);
+		System.arraycopy(spec.mins, 0, lows, 0, ds);
 
 		int bits = len * 8;
 		for(int i = 0; i < bits; i++) {
-			int off = i % ds;
+			int off = bitOffs[i % bpc];
 			int byteIdx = i / 8 + offset;
 			mid = (highs[off] + lows[off]) / 2;
 			if(d[off] > mid) {
@@ -88,6 +81,10 @@ public class KDKey {
 	}
 
 	public void getString(StringBuilder res, int resolution) {
+		int mbpc = spec.alphabet.maxBitsPerChar;
+		char[] chars = spec.alphabet.chars;
+		int bpc = spec.bits;
+		int[] bitOffs = spec.bitOffs;
 		int ds = d.length;
 		double mid = 0;
 		int tmp = 0, off = 0;
@@ -95,13 +92,11 @@ public class KDKey {
 
 		double[] highs = new double[ds];
 		double[] lows = new double[ds];
-		for(int i = 0; i < ds; i++) {
-			lows[i] = spec.bounds[i][0];
-			highs[i] = spec.bounds[i][1];
-		}
+		System.arraycopy(spec.maxs, 0, highs, 0, ds);
+		System.arraycopy(spec.mins, 0, lows, 0, ds);
 
 		for(int i = 0; i < bits; i++) {
-			off = i % ds;
+			off = bitOffs[i % bpc];
 			mid = (highs[off] + lows[off]) / 2;
 			if(d[off] > mid) {
 				tmp = (tmp << 1) | 0x1;
@@ -110,8 +105,8 @@ public class KDKey {
 				tmp = tmp << 1;
 				highs[off] = mid;
 			}
-			if(i % 5 == 4) {
-				res.append(BASE32_ISH[tmp]);
+			if((i % mbpc) == (mbpc - 1)) {
+				res.append(chars[tmp]);
 				tmp = 0;
 			}
 		}
