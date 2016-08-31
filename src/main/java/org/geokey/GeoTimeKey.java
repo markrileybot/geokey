@@ -16,6 +16,14 @@ public class GeoTimeKey extends KDKey {
 		super(spec);
 	}
 
+	public GeoTimeKey(String s) {
+		super(spec, s);
+	}
+
+	public GeoTimeKey(byte[] s) {
+		super(spec, s);
+	}
+
 	public GeoTimeKey setLatitude(double latitude) {
 		set(1, latitude);
 		return this;

@@ -11,6 +11,14 @@ public class GeoKey extends KDKey {
 			.setAlphabet(Alphabet.GEO_HASH)
 			.build();
 
+	public GeoKey(String s) {
+		super(spec, s);
+	}
+
+	public GeoKey(byte[] s) {
+		super(spec, s);
+	}
+
 	public GeoKey() {
 		super(spec);
 	}

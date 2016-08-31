@@ -1,5 +1,7 @@
 package org.geokey;
 
+import java.util.Arrays;
+
 /**
  * Created by mriley on 8/26/16.
  */
@@ -19,10 +21,21 @@ public class Alphabet {
 
 
 	final char[] chars;
+	final int[] indexes;
+	final int indexOffset;
 	final int maxBitsPerChar;
 
 	public Alphabet(int maxBitsPerChar, char ... chars) {
 		this.chars = chars;
 		this.maxBitsPerChar = maxBitsPerChar;
+		int maxChar = 0, minChar = Integer.MAX_VALUE;
+		for(char c : chars) {
+			maxChar = Math.max(maxChar, c);
+			minChar = Math.min(minChar, c);
+		}
+		this.indexOffset = minChar;
+		this.indexes = new int[maxChar - indexOffset + 1];
+		Arrays.fill(indexes, -1);
+		for(int i = 0; i < chars.length; i++) indexes[chars[i] - indexOffset] = i;
 	}
 }
