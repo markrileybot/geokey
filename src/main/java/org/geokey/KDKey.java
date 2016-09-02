@@ -130,8 +130,9 @@ public class KDKey {
 			int off = bitOffs[i % bpc];
 			int byteIdx = i / 8 + offset;
 			mid = (highs[off] + lows[off]) / 2;
+			res[byteIdx] <<= 1;
 			if(d[off] > mid) {
-				res[byteIdx] = (byte) ((res[byteIdx] << 1) | 0x1);
+				res[byteIdx] += 1;
 				lows[off] = mid;
 			} else {
 				highs[off] = mid;
@@ -167,11 +168,11 @@ public class KDKey {
 		for(int i = 0; i < bits; i++) {
 			off = bitOffs[i % bpc];
 			mid = (highs[off] + lows[off]) / 2;
+			tmp <<= 1;
 			if(d[off] > mid) {
-				tmp = (tmp << 1) | 0x1;
+				tmp += 1;
 				lows[off] = mid;
 			} else {
-				tmp = tmp << 1;
 				highs[off] = mid;
 			}
 			if((i % mbpc) == (mbpc - 1)) {
