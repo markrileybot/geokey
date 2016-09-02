@@ -2,7 +2,7 @@
 
 K Dimensional Z-Order curve utils.
 
-[![Build Status](https://travis-ci.org/markrileybot/geokey.svg?branch=master)](https://travis-ci.org/markrileybot/geokey)
+[![Build Status](https://travis-ci.org/markrileybot/geokey.svg?branch=master)](https://travis-ci.org/markrileybot/geokey) [![Coverage Status](https://coveralls.io/repos/github/markrileybot/geokey/badge.svg?branch=master)](https://coveralls.io/github/markrileybot/geokey?branch=master)
 
 ## Building
 
