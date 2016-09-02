@@ -2,6 +2,8 @@
 
 K Dimensional Z-Order curve utils.
 
+[![Build Status](https://travis-ci.org/markrileybot/geokey.svg?branch=master)](https://travis-ci.org/markrileybot/geokey)
+
 ## Building
 
 ./gradlew build
