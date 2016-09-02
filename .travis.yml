@@ -18,5 +18,6 @@ cache:
     - '$HOME/.gradle'
     - '.gradle'
 
-script:
-  ./gradlew build check sonarqube
+after_success:
+  - ./gradlew jacocoTestReport coveralls
+

@@ -9,7 +9,7 @@ buildscript{
 plugins {
     id "java"
     id "jacoco"
-    id "org.sonarqube" version "2.1-rc2"
+	id 'com.github.kt3k.coveralls' version '2.6.3'
 }
 
 repositories {
@@ -29,11 +29,10 @@ dependencies {
     testCompile 'log4j:log4j:1.2.17'
 }
 
-sonarqube {
-    properties {
-        property "sonar.projectName", "${project.name}"
-        property "sonar.projectKey", "${project.group}.${project.name}"
-        property "sonar.login", "${System.properties['sonar.login']}"
-        property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
     }
 }
+
