@@ -74,7 +74,8 @@ public class KDKeySpec {
 	@Override
 	public String toString() {
 		return "KDKeySpec{" +
-				"mins=" + Arrays.toString(mins) +
+				"alphabet=" + alphabet +
+				", mins=" + Arrays.toString(mins) +
 				", maxs=" + Arrays.toString(maxs) +
 				", bitOffs=" + Arrays.toString(bitOffs) +
 				", bits=" + bits +

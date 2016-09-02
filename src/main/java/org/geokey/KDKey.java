@@ -157,7 +157,7 @@ public class KDKey {
 		int ds = d.length;
 		double mid = 0;
 		int tmp = 0, off = 0;
-		int bits = resolution <= -1 ? ds * 8 * mbpc : resolution * mbpc;
+		int bits = resolution <= -1 ? ds * 8 * 8 : resolution * mbpc;
 
 		double[] highs = new double[ds];
 		double[] lows = new double[ds];

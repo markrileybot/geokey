@@ -8,7 +8,7 @@ public class GeoTimeKey extends KDKey {
 	private static final KDKeySpec spec = new KDKeySpec.Builder()
 			.addDim(-180, 180, 1)
 			.addDim(-90, 90, 1)
-			.addDim(0, Long.MAX_VALUE, 2)
+			.addDim(0, 1L << 62, 1)
 			.setAlphabet(Alphabet.GEO_TIME_HASH)
 			.build();
 
