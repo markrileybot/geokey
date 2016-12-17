@@ -22,7 +22,7 @@ repositories {
 
 group = 'org.geokey'
 description = 'Geo key stuff'
-version = '0.0.1'
+version = '0.0.2-SNAPSHOT'
 
 dependencies {
     testCompile 'junit:junit:4.11'
