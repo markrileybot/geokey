@@ -71,10 +71,6 @@ public class KDKeySpec {
 		this.bits = bits;
 	}
 
-	public double getRange(int dimension) {
-		return getRange(dimension, 8*8);
-	}
-
 	public double getRange(int dimension, int bits) {
 		double c = 0;
 		double segs = bits / (double)this.bits;
