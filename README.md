@@ -2,11 +2,29 @@
 
 K Dimensional Z-Order curve utils.
 
-[![Build Status](https://travis-ci.org/markrileybot/geokey.svg?branch=master)](https://travis-ci.org/markrileybot/geokey) [![Coverage Status](https://coveralls.io/repos/github/markrileybot/geokey/badge.svg?branch=master)](https://coveralls.io/github/markrileybot/geokey?branch=master)
+[![Build Status](https://travis-ci.org/markrileybot/geokey.svg?branch=master)](https://travis-ci.org/markrileybot/geokey) 
+[![Coverage Status](https://coveralls.io/repos/github/markrileybot/geokey/badge.svg?branch=master)](https://coveralls.io/github/markrileybot/geokey?branch=master)
+[![Download](https://api.bintray.com/packages/mrileybot/markrileybot/geokey/images/download.svg) ](https://bintray.com/mrileybot/markrileybot/geokey/_latestVersion)
 
 ## Building
 
 ./gradlew build
+
+## Gradle dependency
+
+build.gradle:
+
+```groovy
+
+repositories {
+	maven { url 'https://dl.bintray.com/mrileybot/markrileybot/' }
+}
+    
+dependencies {
+	compile 'org.geokey:geokey:0.0.1'
+}
+
+```
 
 ## Using
 
