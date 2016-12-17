@@ -9,7 +9,9 @@ buildscript{
 plugins {
     id "java"
     id "jacoco"
+	id 'maven-publish'
 	id 'com.github.kt3k.coveralls' version '2.6.3'
+	id "com.jfrog.bintray" version "1.7"
 }
 
 repositories {
@@ -20,7 +22,7 @@ repositories {
 
 group = 'org.geokey'
 description = 'Geo key stuff'
-version = '1.0.0-SNAPSHOT'
+version = '0.0.1-SNAPSHOT'
 
 dependencies {
     testCompile 'junit:junit:4.11'
@@ -35,4 +37,40 @@ jacocoTestReport {
         html.enabled = true
     }
 }
+
+task sourceJar(type: Jar) {
+	from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar, dependsOn: 'javadoc') {
+	from javadoc.destinationDir
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+
+			artifact sourceJar {
+				classifier 'sources'
+			}
+
+			artifact javadocJar {
+				classifier 'javadoc'
+			}
+		}
+	}
+}
+
+bintray {
+	user = 'markrileybot'
+	key = System.getenv('BINTRAY_KEY')
+	publications = ['mavenJava']
+	pkg {
+		repo = 'markrileybot'
+		name = project.name
+		userOrg = 'mrileybot'
+	}
+}
+
 

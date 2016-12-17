@@ -1,5 +1,7 @@
 package org.geokey;
 
+import java.io.IOException;
+
 /**
  * N-Dimensional key
  *
@@ -104,9 +106,7 @@ public class KDKey {
 
 	@Override
 	public String toString() {
-		StringBuilder res = new StringBuilder();
-		toString(res, -1);
-		return res.toString();
+		return toString(-1);
 	}
 
 	public byte[] toBytes() {
@@ -146,11 +146,11 @@ public class KDKey {
 		return res.toString();
 	}
 
-	public void toString(StringBuilder res) {
+	public void toString(Appendable res) {
 		toString(res, -1);
 	}
 
-	public void toString(StringBuilder res, int resolution) {
+	public void toString(Appendable res, int resolution) {
 		int mbpc = spec.alphabet.maxBitsPerChar;
 		char[] chars = spec.alphabet.chars;
 		int bpc = spec.bits;
@@ -176,7 +176,11 @@ public class KDKey {
 				highs[off] = mid;
 			}
 			if((i % mbpc) == (mbpc - 1)) {
-				res.append(chars[tmp]);
+				try {
+					res.append(chars[tmp]);
+				} catch (IOException ignored) {
+					throw new RuntimeException(ignored);
+				}
 				tmp = 0;
 			}
 		}

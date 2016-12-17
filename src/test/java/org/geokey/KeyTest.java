@@ -57,4 +57,28 @@ public class KeyTest {
 		Assert.assertEquals(TEST_LONGITUDE, gk.getLongitude(), .001);
 		Assert.assertThat((double)gk.getTime(), is(closeTo(TEST_TIME, 1)));
 	}
+
+	@Test
+	public void testSpecSize() {
+		GeoKey gk = new GeoKey();
+		Assert.assertThat(gk.getSpec().getRange(0, 5*9), is(closeTo(6.06914618556874E-5d, 1e-5)));
+		Assert.assertThat(gk.getSpec().getRange(1, 5*9), is(closeTo(3.03457309278437E-5, 1e-5)));
+	}
+
+	@Test
+	public void testRange() {
+		GeoKey gk1 = new GeoKey().setLatitude(TEST_LATITUDE).setLongitude(TEST_LONGITUDE);
+		GeoKey gk2 = new GeoKey().setLatitude(TEST_LATITUDE).setLongitude(TEST_LONGITUDE);
+		Range<GeoKey> gkrange = new Range<>(gk1, gk2);
+		Assert.assertEquals(TEST_GEOHASH_STRING, gkrange.toString());
+
+		gk1 = new GeoKey().setLatitude(TEST_LATITUDE).setLongitude(TEST_LONGITUDE);
+		gk2 = new GeoKey().setLatitude(TEST_LATITUDE + 1e-6).setLongitude(TEST_LONGITUDE + 1e-6);
+		gkrange = new Range<>(gk1, gk2);
+		Assert.assertEquals(TEST_GEOHASH_STRING.substring(0, 8), gkrange.toString());
+		Assert.assertTrue(gkrange.contains(gk1));
+		Assert.assertTrue(gkrange.contains(gk2));
+		Assert.assertFalse(gkrange.contains(new GeoKey().setLatitude(TEST_LATITUDE + 1e-6 + 1e-6)
+				.setLongitude(TEST_LONGITUDE + 1e-6 + 1e-6)));
+	}
 }
