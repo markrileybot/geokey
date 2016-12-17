@@ -3,6 +3,7 @@ package org.geokey;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import static org.geokey.TestData.*;
@@ -20,6 +21,26 @@ public class KeyTest {
 		Assert.assertEquals(TEST_GEOHASH_STRING.substring(0, 9), new GeoKey().setLatitude(TEST_LATITUDE).setLongitude(TEST_LONGITUDE).toString(9));
 		byte[] bytes = new GeoKey().setLatitude(TEST_LATITUDE).setLongitude(TEST_LONGITUDE).toBytes();
 		Assert.assertArrayEquals(Arrays.toString(bytes), TEST_GEOHASH_BYTES, bytes);
+	}
+
+	@Test(expected = RuntimeException.class)
+	public void testGeoKeyWriteError() {
+		new GeoKey().setLatitude(TEST_LATITUDE).setLongitude(TEST_LONGITUDE).toString(new Appendable() {
+			@Override
+			public Appendable append(CharSequence csq) throws IOException {
+				throw new IOException();
+			}
+
+			@Override
+			public Appendable append(CharSequence csq, int start, int end) throws IOException {
+				throw new IOException();
+			}
+
+			@Override
+			public Appendable append(char c) throws IOException {
+				throw new IOException();
+			}
+		});
 	}
 
 	@Test
