@@ -11,17 +11,17 @@ plugins {
 	id 'signing'
 	id 'maven-publish'
 	id 'com.github.kt3k.coveralls' version '2.6.3'
+	id 'org.danilopianini.publish-on-central' version '1.0.2'
 }
 
 repositories {
     mavenLocal()
     mavenCentral()
-    jcenter()
 }
 
 group = 'io.github.markrileybot'
 description = 'Geo key stuff'
-version = '0.0.4'
+version = '0.0.5'
 
 dependencies {
     testImplementation 'junit:junit:4.11'
@@ -41,8 +41,17 @@ task sourceJar(type: Jar) {
 	from sourceSets.main.allJava
 }
 
-task javadocJar(type: Jar, dependsOn: 'javadoc') {
-	from javadoc.destinationDir
+publishOnCentral {
+	if (project.version.endsWith("-SNAPSHOT")) {
+		mavenCentralSnapshotsRepository()
+	}
+
+	projectDescription.set(file('README.md').text)
+	projectLongName.set(project.name)
+	licenseName.set("Apache License, Version 2.0")
+	licenseUrl.set("http://www.apache.org/licenses/LICENSE-2.0")
+	projectUrl.set("https://github.com/markrileybot/${project.name}")
+	scmConnection.set("git:git@github.com:markrileybot/${project.name}")
 }
 
 signing {
@@ -50,19 +59,18 @@ signing {
 }
 
 publishing {
-	repositories {
-		maven {
-			name = "GitHubPackages"
-			url = uri("https://maven.pkg.github.com/markrileybot/geokey")
-			credentials {
-				username = project.findProperty("github.username")
-				password = project.findProperty("github.packages.token")
-			}
-		}
-	}
-
 	publications {
 		mavenJava(MavenPublication) {
+			pom {
+				developers {
+					developer {
+						name.set("Mark Riley")
+						email.set("mark@markriley.net")
+						url.set("https://github.com/markrileybot/${project.name}")
+					}
+				}
+			}
+
 			from components.java
 
 			artifact sourceJar {
@@ -75,5 +83,3 @@ publishing {
 		}
 	}
 }
-
-

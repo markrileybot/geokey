@@ -4,6 +4,7 @@ K Dimensional Z-Order curve utils.
 
 [![Build Status](https://travis-ci.org/markrileybot/geokey.svg?branch=master)](https://travis-ci.org/markrileybot/geokey) 
 [![Coverage Status](https://coveralls.io/repos/github/markrileybot/geokey/badge.svg?branch=master)](https://coveralls.io/github/markrileybot/geokey?branch=master)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.markrileybot/geokey/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.markrileybot/geokey)
 
 ## Building
 
@@ -11,7 +12,7 @@ K Dimensional Z-Order curve utils.
 
 ## Gradle dependency
 
-See https://github.com/markrileybot/geokey/packages/1492764
+See https://search.maven.org/artifact/io.github.markrileybot/geokey/0.0.5/pom
 
 ## Using
 
