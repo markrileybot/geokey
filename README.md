@@ -4,7 +4,6 @@ K Dimensional Z-Order curve utils.
 
 [![Build Status](https://travis-ci.org/markrileybot/geokey.svg?branch=master)](https://travis-ci.org/markrileybot/geokey) 
 [![Coverage Status](https://coveralls.io/repos/github/markrileybot/geokey/badge.svg?branch=master)](https://coveralls.io/github/markrileybot/geokey?branch=master)
-[![Download](https://api.bintray.com/packages/mrileybot/markrileybot/geokey/images/download.svg) ](https://bintray.com/mrileybot/markrileybot/geokey/_latestVersion)
 
 ## Building
 
@@ -12,19 +11,7 @@ K Dimensional Z-Order curve utils.
 
 ## Gradle dependency
 
-build.gradle:
-
-```groovy
-
-repositories {
-	maven { url 'https://dl.bintray.com/mrileybot/markrileybot/' }
-}
-    
-dependencies {
-	compile 'org.geokey:geokey:0.0.1'
-}
-
-```
+See https://github.com/markrileybot/geokey/packages/1492764
 
 ## Using
 
@@ -92,5 +79,3 @@ public class GeoTimeKey extends KDKey {
 	}
 }
 ```
-
-
