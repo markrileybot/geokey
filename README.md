@@ -12,7 +12,7 @@ K Dimensional Z-Order curve utils.
 
 ## Gradle dependency
 
-See https://search.maven.org/artifact/io.github.markrileybot/geokey/0.0.5/pom
+See https://search.maven.org/artifact/io.github.markrileybot/geokey/
 
 ## Using
 
